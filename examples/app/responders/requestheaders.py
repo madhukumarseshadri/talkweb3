@@ -1,7 +1,5 @@
 """
-myresponder
-filename is used to call from url
-all responders are myresponders if you did not notice
+requestheader responder
 Copyright (c) Madhukumar Seshadri
 """
 from wsgitalkback import *

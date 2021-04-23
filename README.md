@@ -52,7 +52,6 @@ ipcfg = {
 cfg = { 'socket':"/tmp/mysql.sock",
     'user': '',
     'password': '',
-    'host': '',
     'db':'' }
 
 con = ipconnect(ipcfg)
@@ -77,12 +76,12 @@ Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
 WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
 ```
 <Directory "/usr/local/app/twexamples">
-Require all granted`
-</Directory>`
+Require all granted
+</Directory>
 ```
 
 You can view the example at
-http://localhost/examples/helloworld.html
+http://localhost/twexamples/helloworld.html
 
 If you want to use the session in wsgitalkback for managing user sessions, you will need a table in your database for storing user sessions, schema is given below.
 

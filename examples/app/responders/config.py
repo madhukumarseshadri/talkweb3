@@ -1,5 +1,5 @@
 ipcfg = {
-    'user': '',
+    'user': 'root',
     'password': '',
     'host': '',
 	'db':'' }
