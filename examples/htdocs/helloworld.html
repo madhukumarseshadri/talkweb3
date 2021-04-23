@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <meta>
+        <script
+          src="https://code.jquery.com/jquery-3.4.1.min.js"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          crossorigin="anonymous"></script>
+        </meta>
+        <style>
+            #helloworldcontainer {font-size:40px;}
+            #simple { font-size:20px; }
+            #examples {font-size:25px;}
+            #urlqs {font-size:20px;}
+            #getform {font-size:20px;}
+            #postform {font-size:20px;}
+            #ajax {font-size:20px;}
+        </style>
+    </head>
+    <body>
+        <div id="helloworldcontainer">
+            Hello World!
+        </div>
+        <div id="simple">
+            Check out this simpleresponder.py
+            <a href="/ex?r=simpleresponder">responder</a> output.
+        </div>
+        <br>
+        <div id="examples">Examples</div>
+        <br>
+        <div id="urlqs">
+          <div>Example for URL Query String as formdata</div>
+          <a href="/ex?r=urlqs&x=something&y=something">
+            /ex?r=urlqs&x=something&y=something</a>
+        </div>
+        <br>
+        <div id="getform">
+          <div>GET Form</div>
+          <form id="searchfrm" action="/ex" method="GET">
+              <input type="hidden" name="r" value="getform"/>
+              <input id="search" autocomplete="off" name="search"/>
+              <input id="g1" type="submit" value="Go"/>
+          </form>
+        </div>
+        <br>
+        <div id="postform">
+          <div>POST Form</div>
+          <form id="someform" action="/ex?r=postform" method="POST" accept-charset="x-MacRoman">
+            <input id="caller" type="hidden" value="hello" name="caller"/>
+            <input id="s" autocomplete="off" placeholder="Enter Something" name="email"/>
+            <input id="g2" type="submit" value="Go"/>
+        </form>
+        </div>
+        <br>
+        <div id="ajax">
+          <div>Ajax Example</div>
+          <form id="ajax-form">
+            <input id="e" autocomplete="off" placeholder="Enter Something" name="somename"/>
+          </form>
+            <button id="send">Send</button>
+        </div>
+        <div id="ajax-return">
+        </div>
+        <div>
+          Request Headers - See page html for send script
+          <button id="rh_submit">Send</button>
+        </div>
+        <div id="rh_return">
+        </div>
+        <div>
+          Ajax call - Dump environ
+          <button id="ajaxcall">Send</button>
+        </div>
+        <div id="ajaxcallreturn">
+        </div>
+    </body>
+    <script>
+      $("#rh_submit").on('click',function() {
+          $.ajax({type:'POST',
+                url:"http://localhost/ex?r=requestheaders",
+                headers: {"rh1":"something",'rh2':'something'}
+                }).done(function(data) {
+                  $("#rh_return").html(data);
+                })
+      })
+      $("#ajaxcall").on('click',function() {
+          $.ajax({type:'GET',
+                url:"http://localhost/ex?r=simpleresponder",
+                headers: {"rh1":"something",'rh2':'something'}
+                }).done(function(data) {
+                  $("#ajaxcallreturn").html(data);
+                })
+      })
+      $("#send").on('click',function () {
+        console.debug('x');
+        $.ajax({type:"POST",
+            url:"/ex?r=ajax",
+            data:$("#ajax-form").serialize(),
+            success:function(data) {
+              console.debug('data',data);
+              if (data != "") {
+                  $('#ajax-return').empty().append(data)
+              }
+            }
+          });
+      })
+    </script>
+</html>

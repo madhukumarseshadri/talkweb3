@@ -1,0 +1,18 @@
+Metadata-Version: 1.1
+Name: talkweb
+Version: 1.1
+Summary: A html to cell framework
+Home-page: http://www.github.com/madhukumarsehadri
+Author: Madhukumar Seshadri
+Author-email: madhukumarseshadri@gmail.com
+License: MIT License
+Description: A html to cell framework
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

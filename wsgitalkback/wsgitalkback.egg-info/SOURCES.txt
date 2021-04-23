@@ -1,0 +1,17 @@
+README.md
+setup.py
+wsgitalkback/__init__.py
+wsgitalkback/app.py
+wsgitalkback/cookie.py
+wsgitalkback/formdata.py
+wsgitalkback/headers.py
+wsgitalkback/loader.py
+wsgitalkback/path.py
+wsgitalkback/responder.py
+wsgitalkback/session.py
+wsgitalkback/wsgiconstants.py
+wsgitalkback.egg-info/PKG-INFO
+wsgitalkback.egg-info/SOURCES.txt
+wsgitalkback.egg-info/dependency_links.txt
+wsgitalkback.egg-info/not-zip-safe
+wsgitalkback.egg-info/top_level.txt

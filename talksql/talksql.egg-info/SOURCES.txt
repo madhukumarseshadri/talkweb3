@@ -1,0 +1,8 @@
+setup.py
+talksql/__init__.py
+talksql/sqli.py
+talksql.egg-info/PKG-INFO
+talksql.egg-info/SOURCES.txt
+talksql.egg-info/dependency_links.txt
+talksql.egg-info/not-zip-safe
+talksql.egg-info/top_level.txt

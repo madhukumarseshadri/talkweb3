@@ -1,0 +1,41 @@
+webroot=/usr/local/apache2/htdocs
+approot=/usr/local/app
+appname=twexamples
+
+echo webroot is $webroot ..
+echo approot is $approot ..
+echo appname is $appname ..
+
+function exit_if_notroot {
+        echo are you root?
+        read input
+        if test $input != y; then
+                echo sudo root and deploy
+                exit 1
+        fi
+}
+
+function createdir_if_notexists {
+        dir=$1;
+        if test -e $dir; then
+                echo $dir
+        else
+                echo making $dir ..
+                mkdir $dir
+        fi
+}
+
+to_apache=$webroot/$appname
+to_app=$approot/$appname
+
+echo creating dir $approot ..
+createdir_if_notexists $approot
+echo creating dir $to_apache ..
+createdir_if_notexists $to_apache
+echo creating dir $to_app ..
+createdir_if_notexists $to_app
+
+#chown -R www:www $to_app
+
+cp -r ./htdocs/* $to_apache
+cp -r ./app/* $to_app

@@ -1,0 +1,12 @@
+README.md
+setup.py
+talkweb/__init__.py
+talkweb/cell.py
+talkweb/cparser.py
+talkweb/htmltocell.py
+talkweb/wparser.py
+talkweb.egg-info/PKG-INFO
+talkweb.egg-info/SOURCES.txt
+talkweb.egg-info/dependency_links.txt
+talkweb.egg-info/not-zip-safe
+talkweb.egg-info/top_level.txt
