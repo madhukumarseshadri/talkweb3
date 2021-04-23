@@ -21,7 +21,7 @@ I'm woring on the pip install.
 
 Talkweb
  
-https://youtu.be/q9fdvq1zu8A
+https://youtu.be/aDU1JluxNFU
 
 Talkback 
 
