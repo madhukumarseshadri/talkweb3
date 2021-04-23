@@ -1,12 +1,12 @@
 Metadata-Version: 1.1
 Name: wsgitalkback
-Version: 1.0
+Version: 1.1
 Summary: A responder framework to write responders to url requests, implements RFC 2616,RFC 2965
 Home-page: http://www.github.com/madhukumarseshadri
 Author: Madhukumar Seshadri
 Author-email: madhukumarseshadri@gmail.com
 License: MIT License
-Description: UNKNOWN
+Description: A responder framework to write responders to url requests, implements RFC 2616,RFC 2965
 Platform: any
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Environment :: Web Environment

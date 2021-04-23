@@ -1,12 +1,12 @@
 Metadata-Version: 1.1
 Name: talksql
-Version: 1.0
+Version: 1.1
 Summary: A wrapper for mysqlconnector
 Home-page: https://www.github.com/madhukumarseshadri
 Author: Madhukumar Seshadri
 Author-email: madhukumarseshadri@gmail.com
 License: MIT License
-Description: UNKNOWN
+Description: A wrapper for mysqlconnector
 Platform: any
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Environment :: Web Environment

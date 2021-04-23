@@ -9,6 +9,12 @@ It has three packages,
 
 Installation
 
+```
+pip3 install talkweb
+pip3 install wsgitalkback
+pip3 install talksql
+```
+
 Download github and deploy by install modules separately,
 1) Run python setup.py install from talksql directory
 2) Run python setup.py install from wsgitalkback directory

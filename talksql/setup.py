@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'talksql',
-    version = '1.0',
+    version = '1.1',
     license = 'MIT License',
     url = 'https://www.github.com/madhukumarseshadri',
     description = "A wrapper for mysqlconnector",
