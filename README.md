@@ -1,7 +1,7 @@
 Talkweb for python 3
 
-talkweb
-=======
+#talkweb
+========
 
 A light weight server side framewok written in python to build web applications rapidly. 
 
@@ -19,11 +19,11 @@ Download github and deploy by install modules separately,
 
 I'm woring on the pip install.
 
-Talkweb
+##Talkweb
  
 https://youtu.be/aDU1JluxNFU
 
-Talkback 
+##Talkback 
 
 A responder framework to work with any wsgi (web server gateway interface). It uses cookie, query string, posted form data extractions in accordance to RFC 2616-hypertext transfer protocol and RFC 2965 that defines cookie protocols. It also implements a responder framework to respond to each http request and a session keeper to manage sessions.
 
@@ -33,7 +33,7 @@ You will need a web server and WSGI complaint interface
 1)  https://httpd.apache.org/ 
 2)  mod_wsgi https://pypi.org/project/mod-wsgi/, a WSGI https://www.python.org/dev/peps/pep-0333/ compliant interface for hosting python web based applications.
 
-Talksql
+##Talksql
 
 Get your sql work done quikcly. 
 
@@ -53,7 +53,7 @@ cfg = { 'socket':"/tmp/mysql.sock",
 
 con = ipconnect(ipcfg)
 sql = "select * from sometable"
-#xecrs executes the sql and returns the rs in rs with cursor in c  
+#xec/rs executes the sql and returns the rs in rs with cursor in c  
 rs,c=xecrs(con,sql)
 
 Pre-requiste
