@@ -15,12 +15,12 @@ pip3 install wsgitalkback
 pip3 install talksql
 ```
 
-Download github and deploy by install modules separately,
-1) Run python setup.py install from talksql directory
-2) Run python setup.py install from wsgitalkback directory
-3) Run python setup.py install from talkweb directory
-
-I'm woring on the pip install.
+Download github and deploy by install modules separately and in shell,
+```
+python setup.py install from talksql directory
+python setup.py install from wsgitalkback directory
+python setup.py install from talkweb directory
+```
 
 ## Talkweb
  
