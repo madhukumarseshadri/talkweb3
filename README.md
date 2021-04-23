@@ -1,7 +1,6 @@
-Talkweb for python 3
+# Talkweb for python 3
 
-#talkweb
-========
+## talkweb
 
 A light weight server side framewok written in python to build web applications rapidly. 
 
@@ -19,21 +18,21 @@ Download github and deploy by install modules separately,
 
 I'm woring on the pip install.
 
-##Talkweb
+## Talkweb
  
 https://youtu.be/aDU1JluxNFU
 
-##Talkback 
+## Talkback 
 
 A responder framework to work with any wsgi (web server gateway interface). It uses cookie, query string, posted form data extractions in accordance to RFC 2616-hypertext transfer protocol and RFC 2965 that defines cookie protocols. It also implements a responder framework to respond to each http request and a session keeper to manage sessions.
 
-Pre-requiste 
+### Pre-requiste 
 
 You will need a web server and WSGI complaint interface
 1)  https://httpd.apache.org/ 
 2)  mod_wsgi https://pypi.org/project/mod-wsgi/, a WSGI https://www.python.org/dev/peps/pep-0333/ compliant interface for hosting python web based applications.
 
-##Talksql
+## Talksql
 
 Get your sql work done quikcly. 
 
@@ -70,9 +69,9 @@ You will an example app in examples folder. If you have webserver, mod_wsgi, mys
 Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
 
 WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
-`<Directory "/usr/local/app/twexamples">
-Require all granted
-</Directory>`
+`<Directory "/usr/local/app/twexamples">`
+`Require all granted`
+`</Directory>`
 
 You can view the example at
 http://localhost/examples/helloworld.html
