@@ -52,7 +52,8 @@ cfg = { 'socket':"/tmp/mysql.sock",
 con = ipconnect(ipcfg)
 sql = "select * from sometable"
 #xec/rs executes the sql and returns the rs in rs with cursor in c  
-rs,c=xecrs(con,sql) ```
+rs,c=xecrs(con,sql)
+```
 
 Pre-requiste
 
