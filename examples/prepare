@@ -1,0 +1,6 @@
+mkdir ./app
+mkdir ./app/responders
+mkdir ./app/html
+mkdir ./htdocs
+mkdir ./htdocs/css
+mkdir ./htdocs/js
