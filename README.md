@@ -6,9 +6,9 @@ talkweb
 A light weight server side framewok written in python to build web applications rapidly. 
 
 It has three packages,
-#1 - talkweb - package to convert html to objects and work on the object tree
-#2 - wsgitalkback - write responders to url requests using this package
-#3 - talksql - get your sql work quickly done
+1) - talkweb - package to convert html to objects and work on the object tree
+2) - wsgitalkback - write responders to url requests using this package
+3) - talksql - get your sql work quickly done
 
 Installation
 
