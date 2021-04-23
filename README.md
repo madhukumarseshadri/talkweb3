@@ -1,7 +1,5 @@
 # Talkweb for python 3
 
-## talkweb
-
 A light weight server side framewok written in python to build web applications rapidly. 
 
 It has three packages,
@@ -38,6 +36,7 @@ Get your sql work done quikcly.
 
 Example python script,
 
+```python
 ipcfg = {
     'user': '',
     'password': '',
@@ -53,7 +52,7 @@ cfg = { 'socket':"/tmp/mysql.sock",
 con = ipconnect(ipcfg)
 sql = "select * from sometable"
 #xec/rs executes the sql and returns the rs in rs with cursor in c  
-rs,c=xecrs(con,sql)
+rs,c=xecrs(con,sql)```
 
 Pre-requiste
 
