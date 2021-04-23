@@ -70,9 +70,9 @@ You will an example app in examples folder. If you have webserver, mod_wsgi, mys
 Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
 
 WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
-<Directory "/usr/local/app/twexamples">
+`<Directory "/usr/local/app/twexamples">
 Require all granted
-</Directory>
+</Directory>`
 
 You can view the example at
 http://localhost/examples/helloworld.html
