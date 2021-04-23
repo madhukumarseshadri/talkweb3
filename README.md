@@ -30,8 +30,8 @@ A responder framework to work with any wsgi (web server gateway interface). It u
 Pre-requiste 
 
 You will need a web server and WSGI complaint interface
-#1 - https://httpd.apache.org/ 
-#2 - mod_wsgi https://pypi.org/project/mod-wsgi/, a WSGI https://www.python.org/dev/peps/pep-0333/ compliant interface for hosting python web based applications.
+1)  https://httpd.apache.org/ 
+2)  mod_wsgi https://pypi.org/project/mod-wsgi/, a WSGI https://www.python.org/dev/peps/pep-0333/ compliant interface for hosting python web based applications.
 
 Talksql
 
@@ -59,8 +59,8 @@ rs,c=xecrs(con,sql)
 Pre-requiste
 
 You will need 
-#1 - mysql server https://www.mysql.com/downloads/ and 
-#2 - mysql conector https://dev.mysql.com/downloads/connector/python/
+1) mysql server https://www.mysql.com/downloads/ and 
+2) mysql conector https://dev.mysql.com/downloads/connector/python/
 
 
 An example web app,
@@ -78,6 +78,7 @@ You can view the example at
 http://localhost/examples/helloworld.html
 
 If you want to use the session in wsgitalkback for managing user sessions, you will need a table in your database for storing user sessions, schema is given below.
+
 CREATE TABLE `session` (
   `sessionid` varchar(100) NOT NULL,
   `obj` blob,
