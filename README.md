@@ -69,29 +69,33 @@ You will an example app in examples folder. If you have webserver, mod_wsgi, mys
 Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
 
 WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
-`<Directory "/usr/local/app/twexamples">`
-`Require all granted`
-`</Directory>`
+```
+<Directory "/usr/local/app/twexamples">
+Require all granted`
+</Directory>`
+```
 
 You can view the example at
 http://localhost/examples/helloworld.html
 
 If you want to use the session in wsgitalkback for managing user sessions, you will need a table in your database for storing user sessions, schema is given below.
 
-CREATE TABLE `session` (
-  `sessionid` varchar(100) NOT NULL,
-  `obj` blob,
-  `appname` varchar(20) DEFAULT NULL,
-  `login` tinyint(4) DEFAULT NULL,
-  `lastused` datetime DEFAULT NULL
+```
+CREATE TABLE session (
+  sessionid varchar(100) NOT NULL,
+  obj blob,
+  appname varchar(20) DEFAULT NULL,
+  login tinyint(4) DEFAULT NULL,
+  lastused datetime DEFAULT NULL
 )
+```
 
 Lot more can be done.
 
-- Talkweb can be made capable to handling css style querying of html elements like document.queryselector()
+* Talkweb can be made capable to handling css style querying of html elements like document.queryselector()
 
 Testing
 
-- Packages are not tested for Windows and developed on Mac OS X
-- Package is not tested for internatiionalization
+* Packages are not tested for Windows and developed on Mac OS X
+* Package is not tested for internatiionalization
 
