@@ -12,12 +12,9 @@ def appname(environ):
 	return p[0][len(p[0])-2]
 
 def appbasedir(environ):
-	apname = appname(environ)
-	return "/usr/local/app/" + apname
+	return pathfile(environ["SCRIPT_FILENAME"])
 	
 def htdocsbasedir(environ):
-	"""		@todo - unncessary two calls
-	"""
 	return environ['DOCUMENT_ROOT']
 
 def wsgialias(environ):
