@@ -1,17 +1,14 @@
 """
-postform responder
+myresponder
+filename is used to call from url
+all responders are myresponders if you did not notice
 Copyright (c) Madhukumar Seshadri
 """
 from wsgitalkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
-	"""
-		self.usession
-		self.cookies
-		self.environ (mod_wsgi's environ variable)
-	"""
-
+	"""your response"""
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
@@ -33,15 +30,11 @@ class myresponder(uiresponder):
 		#find the hello world container cell within the page
 		hwc=page.findcellbyid("response")
 
-		self.processforms()
+		self.processform()
 
-		if self.formdata.data:
-			#datatype,value,filename if file is being send, content_type of file
-			type,caller,filename,content_type=self.formdata.data['caller']
-			type,email, filename, content_type = self.formdata.data['email']
-
-		#add hello world cell from string by adding 's' to h2oo (html to object)
-		hwc.addcell(h2oo("<div>Get Form Values:"+\
+		#self.formdata.data is bytes not python strings if posted
+		hwc.addcell(h2oo("<div>Post Form Values:"+\
 						 str(self.formdata.data) +"</div>",'s'))
+
 		#return these to gate.py
 		return (status,response_headers,page.html())

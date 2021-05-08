@@ -1,58 +1,42 @@
 """
 Talkweb Examples
+Author - Madhukumar Seshadri
+Copyright (c) Madhukumar Seshadri
 gate.py
 A facade to load responders for each http request
 This example uses wsgitalkback to manage session and cookie
 """
 from wsgitalkback import *
+from wsgitalkback import fskeeper
+#from talksql import *
 
 def application(environ,start_response):
 	""" default handler for http request """
-	status = '200 OK'
-	output = 'Cannot find requested page '
-
-	abd = appbasedir(environ)
-	import sys
-	sys.path.append(abd + os.sep + "responders")
-	import config
-
-	usession=None
-	sk = sqlsessionkeeper(config.ipcfg)
-
-	cookies=html_cookies.fromrequest(environ)
-	sessioncookie=None
-	for acookie in cookies:
-		if acookie.name == "TALKWEB_EXAMPLE":
-			sessioncookie = acookie
-	
-	if sessioncookie:
-		usession = sk.get(sessioncookie.value)
-
+	response = 'Cannot find requested page'
 	response_headers=[]
-	if not usession:
-		usession = session()
-		scookie = cookie("TALKWEB_EXAMPLE",usession.id)
-		scookie.sethttponly()
-		scookie.setsamesite("lax")
-		sk.put(usession)
 
-		#scookie.setsecure()
-		response_headers=html_cookies.toinject([scookie])
+	#get the uriresponder from responders
+	uriresponder=responders.uriresponder()
 
-	responder=responders.uriresponder()
-	pageresponder=responder.respondfor(environ,usession,cookies)
+	#why not implement a routing module - see readme.md
+	#usession = Npne, cookies - None if not processed above
+	#get to your responder - mapped via ?r=responderfile
+	responder=uriresponder.respondfor(environ)
 
-	if pageresponder:
-		status,xresponse_headers,output=pageresponder.respond()
-		if not status:
-			status = '200 OK'
-		if "Content-type" not in xresponse_headers:
-			response_headers.append(("Content-type","text/html;charset=utf-8;"))
-		if "Content-Length" not in xresponse_headers:
-			response_headers.append(("Content-Length",str(len(output))))
+	#respond to the request
+	status,xresponse_headers,response = responder.respond()
 
-		for aheader in xresponse_headers:
-			response_headers.append(aheader)
+	#if not status and response_headers in response, set them
+	if not status:
+		status = '200 OK'
+	if "Content-type" not in xresponse_headers:
+		response_headers.append(("Content-type","text/html;charset=utf-8;"))
+	if "Content-Length" not in xresponse_headers:
+		response_headers.append(("Content-Length",str(len(response))))
 
+	for aheader in xresponse_headers:
+		response_headers.append(aheader)
+
+	#return the response
 	start_response(status,response_headers)
-	return [bytes(output,'utf-8')]
+	return [bytes(response,'utf-8')]

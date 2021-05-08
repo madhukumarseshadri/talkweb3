@@ -1,7 +1,8 @@
 """
 path.py 
-possible repetition of some libs that
-I'm not aware of .. mostly unnecessary stuff .. 
+Author - Madhukumar Seshadri
+Copyright(c) Madhukumar Seshadri
+Purpose: path components
 """
 import os
 import re

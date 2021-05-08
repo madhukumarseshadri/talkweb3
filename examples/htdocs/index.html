@@ -1,0 +1,227 @@
+<html>
+	<!-- Author: Madhukumar Seshadri
+		Copyright(c): Madhukumar Seshadri
+	-->
+    <head>
+        <meta>
+        <script
+          src="https://code.jquery.com/jquery-3.4.1.min.js"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          crossorigin="anonymous"></script>
+        </meta>
+        <style>
+            #helloworldcontainer {font-size:40px;}
+            .h1 { font-size:30px; }
+			.h2 { font-size: 25px;}
+			.h3 {font-size: 20px;}
+			div { font-size: 17px;}
+        </style>
+    </head>
+    <body>
+        <div id="helloworldcontainer">
+            Hello World!
+        </div>
+        <div id="examples" class="h1">Examples</div>
+        <br>
+        <div id="simple">
+            Check out this <a href="/ex?r=simpleresponder">simpleresponder.py</a>. See /twexamples/app/responder/simpleresponder.py for server code. Where r=name in url, name is the python file of responder. Use that file to see server code of all examples. See page source of this file for client code of all examples.
+        </div>
+        <br>
+        <div id="simple_path">
+          Same responder served from under <a href="/ex?r=mod/simpleresponder">mod</a> directory.
+		  <!-- See wsgitalkback Readme.md on why there is not a routing module -->
+        </div>
+        <br>
+        <div id="urlqs">
+          <div class=".h2">Example for URL Query String</div>
+          <a href="/ex?r=urlqs&x=something&y=something">
+            /ex?r=urlqs&x=something&y=something</a>
+        </div>
+        <br>
+        <div id="getform">
+          <div class="h2">GET Form - URL Encoded </div>
+          <form id="getform" action="/ex" method="GET">
+			  <!-- Note: get to the responder using ?r=responder
+				User agent will send only form fields in GET so
+				having to put the responder as a field in this get  
+				On wsgitalkback, a routing module can be implemented but will
+				require server side configuration to show routes, now you don't
+				need that if you reserve field name in get for the responder name
+				Can implement but should go both implementation should allow going both ways
+				If there are any issues with using r, let me know.
+			  -->
+              <input type="hidden" name="r" value="getform"/>
+              <input name="field1"/>
+              <input type="submit" value="Go"/>
+          </form>
+        </div>
+        <br>
+        <div id="postform">
+          <div class="h2">POST Form - URL Encoded</div>
+          <form id="postform" action="/ex?r=postform" method="POST" enctype="application/x-www-form-urlencoded">
+            <input name="field1"/>
+            <input type="submit" value="Go"/>
+        </form>
+        </div>
+        <br>
+		<div id="fileform">
+			<div class="h2">POST Form - File</div>
+			<form id="fileform" action="/ex?r=file" method="POST" enctype="multipart/form-data">
+				<input type="file" multiple name="file1"/>
+				<input type="submit" value="Go"/>
+			</form>
+		</div>
+		<br>
+		<div id="ajax">
+			<div class="h1">
+				Ajax Examples 
+			</div>
+			<br>
+			<div id="getcall">
+				<div class="h2">
+				GET call with query string
+				</div>
+				<button id="clickme">Send</button>
+				<div id="getcall-return">
+				</div>
+			</div>
+			<br>
+			<div id="postform">
+				<div class="h2">Post Form </div>
+				<form id="postform-ajax-form" enctype="application/x-www-form-urlencoded">
+					<input autocomplete="off" name="field1"/>
+				</form>
+				<button id="clickme">Send</button>
+				<div id="postform-return">
+				</div>
+			</div>
+			<br>
+			<div id="postform-file">
+				<div class="h2">Post Form File </div>
+				<form id="postform-file-ajax-form" action="/ex?r=file" method="POST" enctype="multipart/form-data">
+				<input type="file" name="file1" multiple/>
+				</form>
+				<button id="clickme">Send</button>
+				<div id="postform-file-return">
+				</div>	
+			</div>
+			<div id="ajax-form-serialize">
+				<div class="h2">Post Form Serialized </div>
+				<form id="ajax-form-serialize-ajax-form">
+					<input name="field1"/>
+				</form>
+				<button id="clickme">Send</button>
+				<div id="ajax-form-serialize-return">
+				</div>
+			</div>
+			<div id="json">
+				<div class="h2">
+				Send a JSON
+				</div>
+				<input name="json-input"/> 
+				<button id="clickme">Send</button>
+			</div>
+			<div id="json-return">
+			</div>
+			<br>
+		</div>
+		<div>
+			<div class="h2">Example of sending request headers</div>
+			<button id="rh_submit">Send</button>
+		  </div>
+		  <div id="rh_return">
+		  </div>
+		</div>
+		<br>
+		<br>
+		<div>
+			<div class="h1">Managing Sessions</div>
+			<div> Check out this responder that manages <a href="/ex?r=session">session</a></div>
+			<div> If you get an error, make sure apache process have write permission to session folder if using fskeeper </div>
+			<div> Make sure talksql works and session table is created if using sqlsessionkeeper
+			</div>
+		</div>
+    </body>
+    <script>
+      $("#ajax #getcall #clickme").on('click',function() {
+		  console.debug("Sending GET using AJAX ..")
+          $.ajax({type:'GET',
+                url:"http://localhost/ex?r=ajax-get&x=something",
+                headers: {"rh1":"something",'rh2':'something'}
+                }).done(function(data) {
+                  $("#ajax #getcall-return").html(data);
+                })
+      })
+
+	  $("#ajax #postform #clickme").on('click',function () {
+		console.debug("Sending a form using POST ..")
+		var $form = $("#ajax #postform-ajax-form");
+		var form = new FormData($form[0])
+        $.ajax({type:"POST",
+            url:"/ex?r=ajax-post",
+            data:$form.serialize(),
+			enctype: 'application/x-www-form-urlencoded',
+			processData: true,
+            success:function(data) {
+              console.debug('data',data);
+              if (data != "") {
+                  $('#ajax #postform-return').empty().append(data)
+              }
+            }
+          });
+      })
+	  
+	  $("#ajax #postform-file #clickme").on('click',function () {
+		var form = new FormData($("#ajax #postform-file-ajax-form")[0])
+        $.ajax({
+            type: "POST",
+            enctype: 'multipart/form-data',
+            url: "/ex?r=file",
+            data: form,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 800000,
+            success: function (data) {
+				$('#ajax #postform-file-return').empty().append(data)
+            },
+            error: function (e) {
+			console.debug(e);
+          }
+        });
+      })
+
+	  $("#ajax #ajax-form-serialize #clickme").on('click',function () {
+        $.ajax({type:"POST",
+            url:"/ex?r=ajax-post",
+            data:$("#ajax #ajax-form-serialize-ajax-form").serialize(),
+            success:function(data) {
+              console.debug('data',data);
+              if (data != "") {
+                  $('#ajax #ajax-form-serialize-return').empty().append(data)
+              }
+            }
+          });
+      })
+
+	  $("#ajax #json #clickme").on('click',function() {
+		  console.debug("Sending JSON  ..")
+          $.ajax({type:'POST',
+                url:"/ex?r=ajax-json",
+				data:JSON.stringify($("#ajax #json input")[0].value)
+                }).done(function(data) {
+                  $("#ajax #json-return").html(data);
+                })
+      })
+
+	  $("#rh_submit").on('click',function() {
+		  console.debug("Ajax Post Request Headers..")
+          $.ajax({type:'POST',
+                url:"http://localhost/ex?r=requestheaders",
+                headers: {"rh1":"something",'rh2':'something'}
+                }).done(function(data) {
+                  $("#rh_return").html(data);
+                })
+      })
+    </script>
+</html>

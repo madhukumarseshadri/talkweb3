@@ -4,7 +4,7 @@ setup(
     name = 'talkweb',
     version = '1.1',
     license = 'MIT License',
-    url = 'http://www.github.com/madhukumarsehadri',
+    url = 'http://www.github.com/madhukumarseshadri',
     description = "A html to cell framework",
     long_description = "A html to cell framework",
     author = 'Madhukumar Seshadri',

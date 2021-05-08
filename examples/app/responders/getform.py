@@ -1,17 +1,13 @@
 """
 getform responder
+all responders are myresponders if you did not notice
 Copyright (c) Madhukumar Seshadri
 """
 from wsgitalkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
-	"""
-		self.usession
-		self.cookies
-		self.environ (mod_wsgi's environ variable)
-	"""
-
+	""" your response	"""
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
@@ -33,14 +29,14 @@ class myresponder(uiresponder):
 		#find the hello world container cell within the page
 		hwc=page.findcellbyid("response")
 
-		qsformdata = formdata.fromurlenc(html_transport.xtract_qs(self.qs))
+		self.processform()
 
-		if qsformdata.data:
-			#datatype,value,filename if file is being send, content_type of file
-			type,value,filename,content_type=qsformdata.data['search']
+		#datatype,value,filename if file is being send, content_type of file
+		type,value,filename,content_type=self.formdata.data['field1']
 
 		#add hello world cell from string by adding 's' to h2oo (html to object)
-		hwc.addcell(h2oo("<div>Get Form Values send:"+\
-						value +"</div>",'s'))
+		hwc.addcell(h2oo("<div>Get Form Values formdata in responder:"+\
+					str(self.formdata.data) +"</div>",'s'))
+
 		#return these to gate.py
 		return (status,response_headers,page.html())

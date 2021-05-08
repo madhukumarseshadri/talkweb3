@@ -1,35 +1,16 @@
 """
- responder.py
- Purpose - find the responder for the request and respond
- Copyright (c) Madhukumar Seshadri. All rights reserved.
- See end of file for commentary, history and other details ..
- Introducing changes on April 10th 2014 ..
-
+responder.py
+Author: Madhukumar Seshadri
+Copyright (c) Madhukumar Seshadri.
+Purpose - find the responder for the request and respond
 """
-from talkweb import *
+#from talkweb import *
 from .app import *
 from .headers import *
 from .formdata import *
 from .loader import *
 import re
 import os
-
-class twserver:
-	def __init__(self,environ,path,fn,traverse=0):
-		self.environ=environ
-		self.path=path
-		self.fn=self.path + os.sep + "html" + os.sep + fn
-
-	def respond(self):
-		x=""
-		#logthis(self.environ,"responder.py:twserver:respond>" + self.fn + "\n")
-		try:
-			#x=tohtml(self.fn)
-			x=h2oo(self.fn)
-		except IOError as e:
-			logthis(self.environ,"a file by name " + self.fn + " could not be opened" + str(e) + "\n")
-			pass
-		return ('',[],x)
 
 class responders:
 	""" factory .. ask me for uriresponder class .. """
@@ -41,9 +22,7 @@ class responders:
 	def frommodule(cls,modulename,rootdir):
 		urlresponder=twresponder()
 		aresponder=urlresponder.makeresponder(modulename,rootdir)
-		if aresponder:
-			return aresponder
-		return
+		return aresponder
 
 class twresponder:
 	""" talkweb responder .. use respondfor to get the responder .."""
@@ -51,16 +30,15 @@ class twresponder:
 		""" uri is the module name """
 		rootdir=appbasedir(environ)
 		responder = self.makeresponder(uri,rootdir,environ,session,cookies)
-		#responder.p = page(responder.__name__)
 		return responder
 
 	def respondfor(self,environ,session=None,cookies=None):
 		""" environ["QUERY_STRING"] is expected to be responder	"""
-		#logthis(environ,"responder.py:twresponder:responderfor")
 		rootdir=appbasedir(environ)
 		qs=environ["QUERY_STRING"]
+		#print('type(qs)',type(qs))
 
-		qsaofa = html_transport.xtract_qs(qs)
+		qsaofa = http_transport.xtract_qs(qs)
 
 		module=""
 		if len(qsaofa) > 0:
@@ -70,11 +48,6 @@ class twresponder:
 
 		if not module:
 			return None
-
-		if module[-3:] == ".tw":
-			path=appbasedir(environ)
-			#logthis(environ,"looking for twserver")
-			return twserver(environ,path,module)
 
 		if not module:
 			print ('responder.py:twresponder:respondfor> no module for' +\
@@ -133,18 +106,32 @@ class twresponder:
 class responder(type):
 	""" Others will become my descendant """
 	__inheritances__=[type]
+
+	def setsession(self,usession):
+		self.usession = usession
+
+	def setcookies(self,cookies):
+		self.cookies = cookies
 	
-	def requestheaders(self,k):
+	def requestheader(self,k):
 		return self.environ["HTTP_"+k.upper()]
 
-	def processforms(self):
-		""" process any posted forms in the environuest """
-		if not self.environ:
-			#logtowebserver error log or syslog
-			return
-		self.formdata=formdata.fromrequest(self.environ)
+	def processform(self,encoding="utf-8"):
+		""" process any get or posted """
+		self.formdata=formdata.fromrequest(self.environ,encoding)
 
-	def respond(self,writeable):
+	def processinput(self):
+		""" serialized bytes via ajax """
+		incoming = self.environ["wsgi.input"]
+		#mod_wsgi - either to use content-length or read in blocks
+		octet=b''
+		inp = incoming.read(1024*1024)
+		while inp:
+			octet += inp
+			inp = incoming.read(1024*1024)
+		return octet
+
+	def respond(self):
 		""" if you don't respond, what is point of being a responder """
 		return "__meta__"
 

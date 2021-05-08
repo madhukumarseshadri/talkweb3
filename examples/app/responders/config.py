@@ -1,5 +1,5 @@
 ipcfg = {
-    'user': 'root',
+    'user': '',
     'password': '',
     'host': '',
 	'db':'' }
@@ -7,5 +7,5 @@ ipcfg = {
 cfg = { 'socket':"/tmp/mysql.sock",
     'user': '',
     'password': '',
-    'host': '127.0.0.1',
+    'host': '',
 	'db':'' }

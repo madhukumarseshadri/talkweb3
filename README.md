@@ -17,9 +17,9 @@ pip3 install talksql
 
 Download github and deploy by install modules separately and in shell,
 ```
-python setup.py install from talksql directory
 python setup.py install from wsgitalkback directory
 python setup.py install from talkweb directory
+python setup.py install from talksql directory
 ```
 
 ## Talkweb
@@ -38,7 +38,7 @@ You will need a web server and WSGI complaint interface
 
 ## Talksql
 
-Get your sql work done quikcly. 
+Get your sql work done quikcly. It is not needed to get examples app running. 
 
 Example python script,
 
@@ -62,17 +62,16 @@ rs,c=xecrs(con,sql)
 
 Pre-requiste
 
-You will need 
+You will need mysql server,
 1) mysql server https://www.mysql.com/downloads/ and 
 2) mysql conector https://dev.mysql.com/downloads/connector/python/
 
 
-An example web app,
+## An example web app
 
-You will an example app in examples folder. If you have webserver, mod_wsgi, mysql server, mysql connector and installed three packages talkweb, wsgitalkback and talksql, you can deploy the examples app. Just run the deploy shell script in examples folder
+If you have apache webserver and mod_wsgi installed, you can deploy the examples app. Just run the deploy shell script in examples folder after setting app name in deploy script. If you are going to use sql server as session store, then mysql server, mysql connector will need to be installed as well.
 
 Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
-
 ```
 WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
 <Directory "/usr/local/app/twexamples">
@@ -97,10 +96,9 @@ CREATE TABLE session (
 
 Lot more can be done.
 
-* Talkweb can be made capable to handling css style querying of html elements like document.queryselector()
+* Talkweb can be made capable to handling css style querying of html elements like document.queryselector() or jquery's $().
 
 Testing
 
-* Packages are not tested for Windows and developed on Mac OS X
-* Package is not tested for internatiionalization
+* Packages are not tested for Windows and developed on Mac OS X. It should work on windows, there can some path issues, if found raise an issue in github. I don't have a windows setup to work on.
 

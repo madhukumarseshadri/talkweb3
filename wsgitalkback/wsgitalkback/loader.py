@@ -1,14 +1,12 @@
 """ 
-I load modules in interpreter in which 
-my code will be executed .. of course I don't 
-load - python group loads it using imp
-as usual, I'm unnecessary wrapper
-suite () [ | ] [ & ]
+loader.py
+Author : Madhukumar Seshari
+Copyright (c) Madhukumar Seshadri
+Purpose: loads a python module
 """ 
 
 import imp
 import sys
-from random import *
 
 class _x:
 	emptyclass=""

@@ -1,6 +1,6 @@
 """
-simpleresponder
-filename is used to call from url with ?r=simpleresponder
+simple responder
+This simple responder can be called with ?r=mod/simpleresponder
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
@@ -9,26 +9,7 @@ from talkweb import *
 import config
 
 class myresponder(uiresponder):
-	"""
-		Inherited great - What's available for use?
-		self.environ=environ
-		#self.environ (mod_wsgi's environ variable)
-		self.usession=session
-		self.cookies=cookies
-		#self.usession - if set in gate.py or passed
-		#self.cookies - if set in gate.py or passed
-		#if you are going to manage and session and cookies here, 
-		#you can do that as well using session module
-		self.appbasedir=appbasedir
-		#basedir where gate.py was found
-		self.formdata=None
-		#use self.processform() to get self.formdata
-		self.qs=qs
-		#query string 
-		self.qsaofa=qsaofa
-		#query string as array of array
-		This simple responder was called with ?r=simpleresponder
-	"""
+	""" your response """
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
@@ -44,7 +25,7 @@ class myresponder(uiresponder):
 		#print to apache log
 		#print('an',an,'wan',wan,'abd',abd)
 
-		fn = abd + os.sep + 'html' + os.sep + "simpleresponse.html"
+		fn = abd + 'html' + os.sep + "simpleresponse.html"
 		#come to object (cells) from html file
 		page=h2oo(fn)
 		#find the hello world container cell within the page

@@ -1,6 +1,5 @@
 """
 cookie.py
-from mod_python pylib - we use apache,request,config,logger
 Author - Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 HyperText Transfer Protocol (RFC2616 4.2 http://www.ietf.org/rfc/rfc2616.txt)
@@ -12,8 +11,9 @@ Set-Cookie:name=value,
 Features that not there but you can get from Cookie.py in mod_python:
 	pyobject serialize to wire as field content
 	encrypted cookies
+Purpose - Manage cookies as per RFC
 """
-from .headers import *
+from .transport import *
 
 class cookie:
 	""" payload object """
@@ -62,14 +62,14 @@ class cookie:
 		""" as field content - where we bring the set attribs to rfc 2616 stream """
 		s=""
 		#@todo self.value need to be come to rfc complaint stream from pyobject
-		s +=  self.name + html_transport.eq + str(self.value) + html_transport.semicolon
+		s +=  self.name + http_transport.eq + str(self.value) + http_transport.semicolon
 		for this_enum in self.nvp:
 			if this_enum in html_cookies.novaluekeys:
 				#secure, httponly, discard
-				s += html_cookies.keyforenum(this_enum) + html_transport.semicolon
+				s += html_cookies.keyforenum(this_enum) + http_transport.semicolon
 			else:
 				s += html_cookies.keyforenum(this_enum) + \
-					html_transport.eq + str(self.nvp[this_enum]) + html_transport.semicolon
+					http_transport.eq + str(self.nvp[this_enum]) + http_transport.semicolon
 		return s[0:-1]
 
 class html_cookies:
@@ -101,7 +101,7 @@ class html_cookies:
 	@classmethod
 	def generate(cls,s):
 		""" we bring cookies object to life
-		    s is whatever in html_transport xtracted_cookies output
+		    s is whatever in http_transport xtracted_cookies output
 		    if you provide output which need to be cookies you get cookies in your cookies
 		    or we create and give it you """
 		output=[]
@@ -131,7 +131,7 @@ class html_cookies:
 		if "HTTP_COOKIE" not in environ:
 			return []
 		s=environ["HTTP_COOKIE"]
-		xtracted=html_transport.xtract_cookies(s)
+		xtracted=http_transport.xtract_cookies(s)
 		#print("xtracted cookies", xtracted)
 		return cls.generate(xtracted)
 
@@ -168,7 +168,7 @@ if __name__ == "__main__":
 	s='choclatechip="what good are you"; pecan=[1, 2, 3, 4]'
 	print ("coming to object")
 	print ("received:",s)
-	xtracted=html_transport.xtract_cookies(s)
+	xtracted=http_transport.xtract_cookies(s)
 	print ("xtracted:",xtracted)
 	mycookies=html_cookies.generate(xtracted)
 	print (html_cookies.toinject(mycookies))

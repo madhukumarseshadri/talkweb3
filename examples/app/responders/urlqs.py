@@ -1,5 +1,7 @@
 """
-urlqs responder
+myresponder
+filename is used to call from url
+Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
 from wsgitalkback import *
@@ -11,7 +13,6 @@ class myresponder(uiresponder):
 		self.cookies
 		self.environ (mod_wsgi's environ variable)
 	"""
-
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
@@ -33,12 +34,15 @@ class myresponder(uiresponder):
 		#find the hello world container cell within the page
 		hwc=page.findcellbyid("response")
 
+		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
+						str(self.qs) +"</div>",'s'))
+
+		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
+						str(self.qsaofa) +"</div>",'s'))
+
 		#add hello world cell from string by adding 's' to h2oo (html to object)
-
-		qsformdata = formdata.fromurlenc(html_transport.xtract_qs(self.qs))
-
-		hwc.addcell(h2oo("<div>URL Query string:"+\
-						self.qs +"</div>",'s'))
+		qsformdata = formdata.fromurlenc(self.qsaofa)
+		print('qsfomdata',qsformdata.data)
 
 		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
 						str(qsformdata.data) +"</div>",'s'))
