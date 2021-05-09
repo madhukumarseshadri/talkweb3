@@ -146,7 +146,7 @@
       $("#ajax #getcall #clickme").on('click',function() {
 		  console.debug("Sending GET using AJAX ..")
           $.ajax({type:'GET',
-                url:"http://localhost/ex?r=ajax-get&x=something",
+                url:"/ex?r=ajax-get&x=something",
                 headers: {"rh1":"something",'rh2':'something'}
                 }).done(function(data) {
                   $("#ajax #getcall-return").html(data);
