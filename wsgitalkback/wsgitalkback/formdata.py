@@ -45,7 +45,7 @@ class formdata:
 
 	@classmethod
 	def frommultipart(cls,xstruct):
-		""" where xstruct is struct xtract from headers.py 
+		""" where xstruct is ptree from xtract_multiplart in transport.py 
 			formdata.data - {},
 			formdat.data[fieldname] = [type,value,filename,content-type]
 			type=b'f' if file otherwise b''

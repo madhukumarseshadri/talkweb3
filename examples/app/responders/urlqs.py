@@ -42,7 +42,6 @@ class myresponder(uiresponder):
 
 		#add hello world cell from string by adding 's' to h2oo (html to object)
 		qsformdata = formdata.fromurlenc(self.qsaofa)
-		print('qsfomdata',qsformdata.data)
 
 		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
 						str(qsformdata.data) +"</div>",'s'))

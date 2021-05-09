@@ -29,7 +29,7 @@ class myresponder(uiresponder):
 		self.response_headers=[]
 		if not usession:
 			usession = session()
-			scookie = cookie("TALKWEB_EXAMPLE",usession)
+			scookie = cookie("TALKWEB_EXAMPLE",usession.id)
 			scookie.sethttponly()
 			scookie.setsamesite("lax")
 			sk.put(usession)
