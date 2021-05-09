@@ -24,7 +24,7 @@ python setup.py install from talksql directory
 
 ## Talkweb
  
-https://youtu.be/aDU1JluxNFU
+https://www.youtube.com/watch?v=Dh000mkLYSI
 
 ## Talkback 
 
@@ -66,8 +66,11 @@ You will need mysql server,
 1) mysql server https://www.mysql.com/downloads/ and 
 2) mysql conector https://dev.mysql.com/downloads/connector/python/
 
+## Building a web app 
 
-## An example web app
+https://www.youtube.com/watch?v=bk5Bjaa4HHo
+
+## An example web app for examples
 
 If you have apache webserver and mod_wsgi installed, you can deploy the examples app. Just run the deploy shell script in examples folder after setting app name in deploy script. If you are going to use sql server as session store, then mysql server, mysql connector will need to be installed as well.
 
