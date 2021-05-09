@@ -12,7 +12,7 @@ class myresponder(uiresponder):
 		#import talksql to get the connection to db
 		#con=ipconnect(config.ipcfg)
 		#sk = sqlsessionkeeper(connection=con)
-		sk = fskeeper(environ=self.environ)
+		sk = fskeeper(basedir=config.session_rootdir)
 
 		cookies=html_cookies.fromrequest(self.environ)
 		sessioncookie=None

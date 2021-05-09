@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'wsgitalkback',
-    version = '1.2',
+    version = '1.3',
     license = 'MIT License',
     url = 'http://www.github.com/madhukumarseshadri',
     description = "A responder framework to write responders to url requests, implements RFC 2616,RFC 2965",

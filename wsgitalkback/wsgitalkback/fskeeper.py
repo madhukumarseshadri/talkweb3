@@ -16,14 +16,12 @@ class fskeeper:
 	""" filesystem keeper """
 	def __init__(self,**kwargs):
 		#self.request=req
-		if 'environ' not in kwargs:
-			print("Need environ to app base dir") 
-		self.environ=kwargs['environ']
+		if 'basedir' not in kwargs:
+			print("Need basedir to sessions store root") 
+		self.basedir=kwargs['basedir']
 
 	def getfile(self,sessionid):
-		basedir = appbasedir(self.environ)
-		sessionsroot = basedir + "sessions"
-		return sessionsroot + os.sep + sessionid + session_store_suffix
+		return self.basedir + os.sep + sessionid + session_store_suffix
 
 	def getfrom(self,sessioncookie):
 		""" input is sessioncookie identified by session object """

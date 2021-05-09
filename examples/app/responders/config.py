@@ -9,3 +9,5 @@ cfg = { 'socket':"/tmp/mysql.sock",
     'password': '',
     'host': '',
 	'db':'' }
+
+session_rootdir = "/usr/local/app/twexamples/sessions"
