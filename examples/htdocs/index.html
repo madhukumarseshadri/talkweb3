@@ -217,7 +217,7 @@
 	  $("#rh_submit").on('click',function() {
 		  console.debug("Ajax Post Request Headers..")
           $.ajax({type:'POST',
-                url:"http://localhost/ex?r=requestheaders",
+                url:"/ex?r=requestheaders",
                 headers: {"rh1":"something",'rh2':'something'}
                 }).done(function(data) {
                   $("#rh_return").html(data);
