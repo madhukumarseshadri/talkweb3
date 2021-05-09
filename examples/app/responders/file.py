@@ -6,7 +6,6 @@ Copyright (c) Madhukumar Seshadri
 """
 from wsgitalkback import *
 from talkweb import *
-from talksql import *
 
 class myresponder(uiresponder):
 	"""  self.environ self.usession and self.cookies """
