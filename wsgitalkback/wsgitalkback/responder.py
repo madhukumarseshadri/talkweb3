@@ -62,8 +62,8 @@ class twresponder:
 	def makeresponder(self,module,rootdir,environ=None,session=None,cookies=None,qs="",qsaofa=[]):
 		""" we make it only here so that it uniform """
 
-		sys.path.append(rootdir + os.sep + appname(environ))
-		sys.path.append(rootdir + os.sep + appname(environ) + os.sep + "responders")
+		sys.path.append(rootdir + appname(environ))
+		sys.path.append(rootdir + appname(environ) + os.sep + "responders")
 
 		classname="myresponder"; instancename="thisresponder";
 		otype="ui"
