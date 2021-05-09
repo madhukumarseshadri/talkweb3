@@ -141,22 +141,3 @@ class formdata:
 
 	def __str__(self):
 		return str(self.data)
-
-"""
-as sample of xstruct
-at Wed Aug 28 06:07:23 2013:xstruct
-at Wed Aug 28 06:07:23 2013:['boundary', '---------------------------88178448610633266011591823221']
-at Wed Aug 28 06:07:23 2013:['transmission', '-----------------------------88178448610633266011591823221\r\nContent-Disposition: form-data; name="username"\r\n\r\nFirst name Last name\r\n-----------------------------88178448610633266011591823221\r\nContent-Disposition: form-data; name="userid"\r\n\r\nPick your user id\r\n-----------------------------88178448610633266011591823221\r\nContent-Disposition: form-data; name="password"\r\n\r\n\r\n-----------------------------88178448610633266011591823221\r\nContent-Disposition: form-data; name="photo"; filename="Problems "\r\nContent-Type: application/octet-stream\r\n\r\nTalk Problems \n\n\n1) There was a discussion of getting the translator as it stand its today into a tree \n\tand it has been done as well somewhere \n2) \n\n1) twasks processing is crap - there are more asks from talkweb .. but there are hooks .. \n2) added ask of no trumpheting but it is still trumpheting\n3) xattrib - not sure where the switch is to turn off the style auto generation\n4) inline the page level scripts always unless overridden and keep the opening page to https\n\n\n\njava | activex | flash | html 5 | browser specific situation\n\t\n\r\n-----------------------------88178448610633266011591823221--\r\n']
-at Wed Aug 28 06:07:23 2013:['-----------------------------88178448610633266011591823221', 'boundary']
-at Wed Aug 28 06:07:23 2013:['Content-Disposition', [['form-data', ''], ['name', '"username"']]]
-at Wed Aug 28 06:07:23 2013:['', 'First name Last name']
-at Wed Aug 28 06:07:23 2013:['-----------------------------88178448610633266011591823221', 'boundary']
-at Wed Aug 28 06:07:23 2013:['Content-Disposition', [['form-data', ''], ['name', '"userid"']]]
-at Wed Aug 28 06:07:23 2013:['', 'Pick your user id']
-at Wed Aug 28 06:07:23 2013:['-----------------------------88178448610633266011591823221', 'boundary']
-at Wed Aug 28 06:07:23 2013:['Content-Disposition', [['form-data', ''], ['name', '"password"']]]
-at Wed Aug 28 06:07:23 2013:['-----------------------------88178448610633266011591823221', 'boundary']
-at Wed Aug 28 06:07:23 2013:['Content-Disposition', [['form-data', ''], ['name', '"photo"'], ['filename', '"Problems "']]]
-at Wed Aug 28 06:07:23 2013:['Content-Type', ' application/octet-stream']
-at Wed Aug 28 06:07:23 2013:['file', '\n\r\nTalk Problems \n\n\n1) There was a discussion of getting the translator as it stand its today into a tree \n\tand it has been done as well somewhere \n2) \n\n1) twasks processing is crap - there are more asks from talkweb .. but there are hooks .. \n2) added ask of no trumpheting but it is still trumpheting\n3) xattrib - not sure where the switch is to turn off the style auto generation\n4) inline the page level scripts always unless overridden and keep the opening page to https\n\n\n\njava | activex | flash | html 5 | browser specific situation\n\t\n\r\n']
-"""
