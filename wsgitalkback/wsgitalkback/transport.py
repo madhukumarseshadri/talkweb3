@@ -174,69 +174,71 @@ class http_transport:
 
 		return output
 
+	@classmethod 
+	def xtract_one(cls,rest,ptree):
+		content_type=content_disposition=b''
+		#content disposition
+		m = re.search(b'Content-Disposition:',rest)
+		start,stop = m.span()
+		rest = rest[stop:]
+		m = re.search(b'\r\n',rest)
+		start,stop = m.span()
+		content_disposition = rest[:stop-2]
+		rest = rest[stop:]
+		#content type
+		content_type=b''
+		m = re.search(b'Content-Type:',rest)
+		if m:
+			start,stop = m.span()
+			rest = rest[stop:]
+			m = re.search(b'\r\n',rest)
+			start,stop = m.span()
+			content_type = rest[:stop-2]
+			rest = rest[stop:]
+		#transfer encoding
+		content_transfer_encoding=b''
+		m = re.search(b'Content-Transfer-Encoding:',rest)
+		if m:
+			start,stop = m.span()
+			rest = rest[stop:]
+			m = re.search(b'\r\n',rest)
+			start,stop = m.span()
+			content_transfer_encoding = rest[:stop-2]
+			rest = rest[stop:]
+		#begin content block
+		m = re.search(b'\r\n',rest)
+		start,stop = m.span()
+		rest = rest[stop:]
+		content = rest[:start-4]
+		#print("block processing done",rest)
+		ptree.append([b'begin',''])
+		ptree.append([b'Content-Disposition',content_disposition])
+		if content_type:
+			ptree.append([b'Content-Type',content_type])
+			content_type=b'file'
+		else:
+			content_type=b'field'
+		if content_transfer_encoding:
+			ptree.append([b'Content-Transfer-Encoding',content_transfer_encoding])
+		ptree.append([content_type,content])
+		ptree.append([b'end',''])
+
 	@classmethod
 	def xtract_multipart(cls,octet,boundary):
 		""" xtract multipart form data """ 
 		ptree=[]
 		#ptree.append([b"boundary",boundary])
 		#ptree.append([b"transmission",octet])
-		#print('transmission:',octet)
 		l = len(octet)
 		m = re.search(boundary,octet)
 		start,stop = m.span()
-		#print('octet',octet,start,stop)
 		rest = octet[stop:]
-		#print("rest",rest)
 		while rest:
-			#content disposition
-			m = re.search(b'Content-Disposition:',rest)
-			start,stop = m.span()
-			rest = rest[stop:]
-			m = re.search(b'\r\n',rest)
-			start,stop = m.span()
-			content_disposition = rest[:stop-2]
-			rest = rest[stop:]
-			#content type
-			content_type=b''
-			m = re.search(b'Content-Type:',rest)
-			if m:
-				start,stop = m.span()
-				rest = rest[stop:]
-				m = re.search(b'\r\n',rest)
-				start,stop = m.span()
-				content_type = rest[:stop-2]
-				rest = rest[stop:]
-			#transfer encoding
-			content_transfer_encoding=b''
-			m = re.search(b'Content-Transfer-Encoding:',rest)
-			if m:
-				start,stop = m.span()
-				rest = rest[stop:]
-				m = re.search(b'\r\n',rest)
-				start,stop = m.span()
-				content_transfer_encoding = rest[:stop-2]
-				rest = rest[stop:]
-			#begin content block
-			m = re.search(b'\r\n',rest)
-			start,stop = m.span()
-			rest = rest[stop:]
 			m = re.search(boundary,rest)
 			start,stop = m.span()
-			content = rest[:start-4]
+			one = rest[:start]
 			rest = rest[stop:]
-			#print("block processing done",rest)
-			ptree.append([b'begin',''])
-			ptree.append([b'Content-Disposition',content_disposition])
-			if content_type:
-				ptree.append([b'Content-Type',content_type])
-				content_type=b'file'
-			else:
-				content_type=b'field'
-			if content_transfer_encoding:
-				ptree.append([b'Content-Transfer-Encoding',content_transfer_encoding])
-			ptree.append([content_type,content])
-			ptree.append([b'end',''])
-			content_type=content_disposition=b''
+			cls.xtract_one(one,ptree)
 			if rest[:-2] == b'--':
 				break
 
@@ -303,7 +305,7 @@ if __name__ == "__main__":
     #qs = b'?r=madhu&s=m&x=%7B%'
     #xtracted = http_transport.xtract_qs_from_bytes(qs)
     #print(xtracted)
-	transmission=open("/users/madhuseshadri/desktop/trans.o","rb").read()
-	boundary = b'----WebKitFormBoundaryQSBDkBPOcrek0vrT'
+	transmission=open("/tmp/octet.t","rb").read()
+	boundary = b'------WebKitFormBoundarye6ggrdOhhDvOxLrM'
 	for item in http_transport.xtract_multipart(transmission,boundary):
 		print(item)

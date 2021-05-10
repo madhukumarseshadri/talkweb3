@@ -67,6 +67,7 @@
 		<div id="fileform">
 			<div class="h2">POST Form - File</div>
 			<form id="fileform" action="/ex?r=file" method="POST" enctype="multipart/form-data">
+				<input type="hidden" value="id" name="id"/>
 				<input type="file" multiple name="file1"/>
 				<input type="submit" value="Go"/>
 			</form>
@@ -99,6 +100,7 @@
 			<div id="postform-file">
 				<div class="h2">Post Form File </div>
 				<form id="postform-file-ajax-form" action="/ex?r=file" method="POST" enctype="multipart/form-data">
+				<input type="hidden" value="id" name="id"/>
 				<input type="file" name="file1" multiple/>
 				</form>
 				<button id="clickme">Send</button>

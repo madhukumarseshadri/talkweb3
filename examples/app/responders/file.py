@@ -22,6 +22,7 @@ class myresponder(uiresponder):
 		#type,value,filename,content_type
 		#you need to know whether input or multiple or single if not
 		#you check for type of self.formdata[b['fieldname']]
+		_,id,_,_=self.formdata[b'id']
 		
 		s=""
 		if type(self.formdata[b"file1"][0]) == type([]):
