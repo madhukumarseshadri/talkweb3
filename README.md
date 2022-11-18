@@ -90,10 +90,11 @@ You can get a.py responder responding to the request at http://localhost:8000/ap
 ### Pre-requiste to deploy with Apache httpd
 
 On linux, you can use apt,
+```shell
 sudo apt install python3-pip
 sudo apt install apache2
 sudo apt install libapache2-mod-wsgi-py3
-
+```
 You will need a web server and WSGI complaint interface
 1)  https://httpd.apache.org/ 
 2)  mod_wsgi https://pypi.org/project/mod-wsgi/, a WSGI https://www.python.org/dev/peps/pep-0333/ compliant interface for hosting python web based applications.
@@ -124,8 +125,10 @@ rs,c=xecrs(con,sql)
 
 Pre-requiste
 On linux, you can use apt, 
+```shell
 sudo apt install mysql-server
 pip install mysql-connector
+```
 
 You will need mysql server,
 1) mysql server https://www.mysql.com/downloads/ and 
