@@ -5,7 +5,7 @@ A light weight server side framewok written in python to build web applications 
 It has three packages,
 1) talkweb - package to convert html to objects and work on the object tree
 2) wsgitalkback - write responders to url requests using this package
-3) talksql - get your sql work quickly done
+3) talksql - get your sql work quickly done, use the code inside for managing the connector
 
 Installation
 
@@ -22,15 +22,77 @@ python setup.py install from talkweb directory
 python setup.py install from talksql directory
 ```
 
+## Why Talkweb?
+
+https://www.madhu.ink/blog/software/why-talkweb-for-python-web-development/
+
 ## Talkweb
- 
+
 https://www.youtube.com/watch?v=Dh000mkLYSI
 
 ## Talkback 
 
 A responder framework to work with any wsgi (web server gateway interface). It uses cookie, query string, posted form data extractions in accordance to RFC 2616-hypertext transfer protocol and RFC 2965 that defines cookie protocols. It also implements a responder framework to respond to each http request and a session keeper to manage sessions.
 
-### Pre-requiste 
+## Building a web app 
+
+To get started quickly use wsgi_ref https://docs.python.org/3/library/wsgiref.html. 
+
+Create a file with code in a project folder call it app.py,
+```python
+import os
+import sys
+from wsgiref import simple_server, util
+
+from wsgiref.simple_server import make_server
+from wsgitalkback import *
+
+def app(environ, start_response):
+	environ["SCRIPT_FILENAME"]=environ["PWD"] + os.sep + "app.py"
+	print(appbasedir(environ))
+	uriresponder = responders.uriresponder()
+	your_responder = uriresponder.respondfor(environ)
+	
+	start_response('200 OK',[('content-type','text/plain')])
+	bytes=your_responder.respond()
+	#start_response(status,response_headers)
+	return bytes
+
+if __name__ == "__main__":
+    # Get the path and port from command-line arguments
+    path = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 8000
+
+    # Make and start the server until control-c
+    httpd = simple_server.make_server("", port, app)
+    print(f"Serving {path} on port {port}, control-C to stop")
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("Shutting down.")
+        httpd.server_close() 
+```
+
+Create a sub directory under project folder called responders and under that create a file called a.py and put the code below in that,
+```python
+from wsgitalkback import uiresponder
+
+class myresponder(uiresponder):
+	def respond(self):
+		return [bytes(str(self.environ),"utf-8")]
+```
+Now, run app.py, 
+```shell 
+python3 app.py 
+```
+You can get a.py responder responding to the request at http://localhost:8000/app?r=a.
+
+### Pre-requiste to deploy with Apache httpd
+
+On linux, you can use apt,
+sudo apt install python3-pip
+sudo apt install apache2
+sudo apt install libapache2-mod-wsgi-py3
 
 You will need a web server and WSGI complaint interface
 1)  https://httpd.apache.org/ 
@@ -38,7 +100,7 @@ You will need a web server and WSGI complaint interface
 
 ## Talksql
 
-Get your sql work done quikcly. It is not needed to get examples app running. 
+Get your sql work done quickly. It is not needed to get examples app running. 
 
 Example python script,
 
@@ -61,6 +123,9 @@ rs,c=xecrs(con,sql)
 ```
 
 Pre-requiste
+On linux, you can use apt, 
+sudo apt install mysql-server
+pip install mysql-connector
 
 You will need mysql server,
 1) mysql server https://www.mysql.com/downloads/ and 
@@ -97,11 +162,8 @@ CREATE TABLE session (
 )
 ```
 
-Lot more can be done.
-
-* Talkweb can be made capable to handling css style querying of html elements like document.queryselector() or jquery's $().
-
 Testing
 
 * Packages are not tested for Windows and developed on Mac OS X. It should work on windows, there can some path issues, if found raise an issue in github. I don't have a windows setup to work on.
+
 
