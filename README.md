@@ -28,6 +28,18 @@ https://www.madhu.ink/blog/software/why-talkweb-for-python-web-development/
 
 ## Talkweb
 
+Assemble using Templates or Objects - Talkweb says Objects
+
+Talkweb makes a Object tree of html and allows insertion of other htmls into the tree. 
+
+```python
+roots = h2o(htmlfile1)
+div = root[0].findcellbyid("id_of_an_element")
+div.addcell(h2oo(htmlfile2))
+```
+
+Like it, then you will like to develop with talkweb. If not, leave you to templates and it's rules.
+
 https://www.youtube.com/watch?v=Dh000mkLYSI
 
 ## Talkback 
