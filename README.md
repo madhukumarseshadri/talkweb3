@@ -1,6 +1,6 @@
 # Talkweb for python 3
 
-A python web framewok for building web applications rapidly. 
+A python web framework for building web applications rapidly. 
 
 It has three packages,
 1) talkweb - package to convert html to objects and work on the object tree
