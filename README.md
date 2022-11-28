@@ -1,6 +1,6 @@
 # Talkweb for python 3
 
-A light weight server side framewok written in python to build web applications rapidly. 
+A python web framewok for building web applications rapidly. 
 
 It has three packages,
 1) talkweb - package to convert html to objects and work on the object tree
@@ -34,8 +34,8 @@ Talkweb makes a Object tree of html and allows insertion of other htmls into the
 
 ```python
 roots = h2o(htmlfile1)
-div = root[0].findcellbyid("id_of_an_element")
-div.addcell(h2oo(htmlfile2))
+acell = root[0].findcellbyid("id_of_an_element")
+acell.addcell(h2oo(htmlfile2))
 ```
 
 Like it, then you will like to develop with talkweb. If not, leave you to templates and it's rules.
@@ -99,6 +99,8 @@ python3 app.py
 ```
 You can get a.py responder responding to the request at http://localhost:8000/app?r=a.
 
+https://www.youtube.com/watch?v=bk5Bjaa4HHo
+
 ### Pre-requiste to deploy with Apache httpd
 
 On linux, you can use apt,
@@ -146,9 +148,6 @@ You will need mysql server,
 1) mysql server https://www.mysql.com/downloads/ and 
 2) mysql conector https://dev.mysql.com/downloads/connector/python/
 
-## Building a web app 
-
-https://www.youtube.com/watch?v=bk5Bjaa4HHo
 
 ## An example web app for examples
 
@@ -163,7 +162,7 @@ Require all granted
 ```
 
 You can view the example at
-http://localhost/twexamples/helloworld.html
+http://localhost/twexamples/
 
 If you want to use the session in wsgitalkback for managing user sessions, you will need a table in your database for storing user sessions, schema is given below.
 
@@ -180,5 +179,6 @@ CREATE TABLE session (
 Testing
 
 * Packages are not tested for Windows and developed on Mac OS X. It should work on windows, there can some path issues, if found raise an issue in github. I don't have a windows setup to work on.
+* It's not perfect but stable and working well for web apps, issues, problems, features - create them in this repository, so they can fixed or added. 
 
 
