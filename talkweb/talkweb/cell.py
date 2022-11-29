@@ -152,34 +152,38 @@ class cell(object):
 		for k,v in self.attr:
 			if k==key and v==value:
 				return True
-
-	def _findcellusingid(self,findthis,within,match=[]):
-		""" findthis-cellid, within which cell and match is output """
-		if self.attribsearch('id',findthis):
-			match.append(self)
-			return
+	
+	def _findcellbyid(self,id,within,match=[]):
+		""" return on first match of id """
 		for i,acell in enumerate(within.listofcells):
 			if not acell.elementcell:   continue
-			if acell.attribsearch('id',findthis):
+			if acell.attribsearch('id',id):
 				match.append(acell)
-				return acell;
+				return
+			else:
+				self._findcellbyid(id,acell,match)
+
+	def _findcellusingid(self,id,within,match=[]):
+		""" findthis-cellid, within which cell and match is output """
+		for i,acell in enumerate(within.listofcells):
+			if not acell.elementcell:   continue
+			if acell.attribsearch('id',id):
+				match.append(acell)
 			else:
 				if len(acell.listofcells) > 0:
-					self._findcellusingid(findthis,acell,match)
+					self._findcellusingid(id,acell,match)
 
-	def findcellbyid(self,findthis):
-		""" findcellusingid using identifier provided as first arg to this """
+	def findcellbyid(self,id):
+		""" findcellbyid id provided as first arg to this """
 		match=[]
-		self._findcellusingid(findthis,self,match)
+		self._findcellbyid(id,self,match)
 		if len(match) > 0:
 			return match[0]
-		else:
-			return None
-
-	def findcellusingid(self,findthis):
-		""" findcellusingid using identifier provided as first arg to this """
+		
+	def findcellusingid(self,id):
+		""" findcellusingid using identifier provided as first arg to this"""
 		match=[]
-		self._findcellusingid(findthis,self,match)
+		self._findcellusingid(id,self,match)
 		return match
 
 	def _findcellusingtag(self,findthis,within,match=[]):
@@ -207,6 +211,35 @@ class cell(object):
 		acell.parent=self
 		self.listofcells.append(acell)
 		return acell
+	
+	def insertcell(self,celltoinsert,at=0):
+		""" insert a cell """
+		self.listofcells.insert(at,celltoinsert)
+		self.listofcells[at].parent=self
+		return self.listofcells[at]
+
+	## don't like any of these id methods to add/insert/remove 
+	## find the cell / add / insert / remove
+	def _insertcell(self,cellid,incoming):
+		""" add to this cell - use add cell which appends """
+		mylen = len(self.listofcells)
+		acell=incoming
+		hole=-1
+		for i,xcell in enumerate(self.listofcells):
+			#print i,xcell.id,cellid
+			if xcell.attribsearch('id',cellid):
+				#print "found cell ..",xcell
+				hole=i
+				self.listofcells.append(self.listofcells[mylen-1])
+				arange = list(range(mylen))[i+1:]
+				arange.reverse()
+				for x in arange:
+					self.listofcells[x]=self.listofcells[x-1]
+				break;
+		if (hole != -1):
+			self.listofcells[hole]=acell
+			self.listofcells[hole].parent=self
+			return acell
 
 	def addcellundercell(self,cellid,acell):
 		""" cellid is idofcell under which acell need to be added  """
@@ -224,31 +257,8 @@ class cell(object):
 			if not x[0].parent:
 				print("cell is root or does not have parent")
 				return
-			x[0].parent.insertcell(cellid,acell)
+			x[0].parent._insertcell(cellid,acell)
 			return x[0]
-
-	def insertcell(self,cellid,incoming):
-		""" add to this cell """
-		mylen = len(self.listofcells)
-		acell=incoming
-		if type(incoming) in [str,float,int]:
-			acell = cell(str(incoming))
-		hole=-1
-		for i,xcell in enumerate(self.listofcells):
-			#print i,xcell.id,cellid
-			if xcell.attribsearch('id',cellid):
-				#print "found cell ..",xcell
-				hole=i
-				self.listofcells.append(self.listofcells[mylen-1])
-				arange = list(range(mylen))[i+1:]
-				arange.reverse()
-				for x in arange:
-					self.listofcells[x]=self.listofcells[x-1]
-				break;
-		if (hole != -1):
-			self.listofcells[hole]=acell
-			acell.parent=self
-			return acell
 
 	def removecells(self,listofcells):
 		 #remove a particular set within doted cell upon which I'm called, if empty, remove all cells
