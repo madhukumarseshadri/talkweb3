@@ -3,7 +3,7 @@ ajax responder
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
@@ -12,14 +12,7 @@ class myresponder(uiresponder):
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
-		response_headers=[]
-
-		#application name
-		an = appname(self.environ)
-		#wsgi alias for application configured in apache conf
-		wan = wsgialias(self.environ)
-		#application base directory
-		abd = appbasedir(self.environ)
+		response_headers=[("Content-type","text/html;charset=utf-8;")]
 
 		self.processform()
 		

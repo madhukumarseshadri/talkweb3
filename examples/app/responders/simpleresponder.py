@@ -4,7 +4,7 @@ filename is used to call from url with ?r=simpleresponder
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 import config
 
@@ -24,27 +24,18 @@ class myresponder(uiresponder):
 		self.formdata=None
 		#use self.processform() to get self.formdata
 		self.qs=qs
-		#query string 
-		self.qsaofa=qsaofa
-		#query string as array of array
+		#query string
 		This simple responder was called with ?r=simpleresponder
 	"""
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
-		response_headers=[]
-
-		#application name
-		an = appname(self.environ)
-		#wsgi alias for application configured in apache conf
-		wan = wsgialias(self.environ)
-		#application base directory
-		abd = appbasedir(self.environ)
+		response_headers=[("Content-type","text/html;charset=utf-8;")]
 
 		#print to apache log
 		#print('an',an,'wan',wan,'abd',abd)
 
-		fn = abd + os.sep + 'html' + os.sep + "simpleresponse.html"
+		fn = self.appbasedir + os.sep + 'html' + os.sep + "simpleresponse.html"
 		#come to object (cells) from html file
 		page=h2oo(fn)
 		#find the hello world container cell within the page

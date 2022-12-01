@@ -4,7 +4,7 @@ filename is used to call from url
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
@@ -16,32 +16,27 @@ class myresponder(uiresponder):
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
-		response_headers=[]
-
-		#application name
-		an = appname(self.environ)
-		#wsgi alias for application configured in apache conf
-		wan = wsgialias(self.environ)
-		#application base directory
-		abd = appbasedir(self.environ)
-
+		response_headers=[("Content-type","text/html;charset=utf-8;")]
+		
 		#print to apache log
 		#print('an',an,'wan',wan,'abd',abd)
+		print(self.scriptname())
 
-		fn = abd + os.sep + 'html' + os.sep + "simpleresponse.html"
+		fn = self.appbasedir + os.sep + 'html' + os.sep + "simpleresponse.html"
 		#come to object (cells) from html file
 		page=h2oo(fn)
 		#find the hello world container cell within the page
 		hwc=page.findcellbyid("response")
 
-		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
+		hwc.addcell(h2oo("<div>URL Query string:"+\
 						str(self.qs) +"</div>",'s'))
 
-		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
-						str(self.qsaofa) +"</div>",'s'))
+		qsaofa=http_transport.xtract_qs(self.qs)
+		hwc.addcell(h2oo("<div>URL Query string as Array of Array:"+\
+						str(qsaofa) +"</div>",'s'))
 
 		#add hello world cell from string by adding 's' to h2oo (html to object)
-		qsformdata = formdata.fromurlenc(self.qsaofa)
+		qsformdata = formdata.fromurlenc(qsaofa)
 
 		hwc.addcell(h2oo("<div>URL Query string as formdata:"+\
 						str(qsformdata.data) +"</div>",'s'))

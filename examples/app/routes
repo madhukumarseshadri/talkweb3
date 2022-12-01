@@ -1,0 +1,11 @@
+/simpleresponder simpleresponder
+/ajax-get ajax-get
+/ajax-json ajax-json
+/ajax-post ajax-post
+/file file
+/getform getform
+/mod/simpleresponder mod/simpleresponder
+/postform postform
+/requestheaders requestheaders
+/session session
+/urlqs urlqs

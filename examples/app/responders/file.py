@@ -4,7 +4,7 @@ filename is used to call from url
 all responders are myresponders if you did not notice
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
@@ -12,8 +12,8 @@ class myresponder(uiresponder):
 	def respond(self):
 		""" your response please """
 		status="200 OK"
-		response_headers=[]
-		
+		response_headers=[("Content-type","text/html;charset=utf-8;")]
+				
 		self.processform(encoding=None)
 		
 		#type,value,filename,content_type = self.formdata.data[b'fieldname']

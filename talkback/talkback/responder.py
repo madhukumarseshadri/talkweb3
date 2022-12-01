@@ -2,7 +2,7 @@
 responder.py
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri.
-Purpose - find the responder for the request and respond
+Purpose - find the responder for the request, make responder and return
 """
 from .app import *
 from .transport import *
@@ -17,23 +17,36 @@ class responders:
 	def uriresponder(cls):
 		return twresponder()
 
-	@classmethod
-	def frommodule(cls,modulename,rootdir):
-		urlresponder=twresponder()
-		aresponder=urlresponder.makeresponder(modulename,rootdir)
-		return aresponder
-
 class twresponder:
 	""" talkweb responder .. use respondfor to get the responder .."""
-	def respondusingmodule(self,uri,environ,session=None,cookies=None):
-		""" uri is the module name """
-		rootdir=appbasedir(environ)
-		responder = self.makeresponder(uri,rootdir,environ,session,cookies)
+	def respondusingmodule(self,appbasedir,module,environ,session=None,cookies=None):
+		""" uri is the module name
+			appbasedir is path of root app dir that will have reponder directory to have
+			responders with ending slash
+		"""
+		responder = self.makeresponder(appbasedir,module,environ,session,cookies)
 		return responder
 
-	def respondfor(self,environ,session=None,cookies=None):
+	""" get responder module from router file"""
+	def responderfromroutes(self,appbasedir,environ,router,session=None,cookies=None):
+		#request_method = environ["REQUEST_METHOD"]
+		#script_name = environ["SCRIPT_NAME"]
+		#path_info = environ["PATH_INFO"]
+		path = environ["PATH_INFO"]
+		qs=environ["QUERY_STRING"]
+
+		f = open(router,"r")
+		
+		for line in f.readlines():
+			route,module = line.split()
+			if re.search(route,path):
+				return self.makeresponder(appbasedir,module,environ,session,cookies)
+		
+		return None
+
+	""" get responder module from query string param r """
+	def responderfor(self,appbasedir,environ,session=None,cookies=None):
 		""" environ["QUERY_STRING"] is expected to be responder	"""
-		rootdir=appbasedir(environ)
 		qs=environ["QUERY_STRING"]
 		#print('type(qs)',type(qs))
 
@@ -53,43 +66,40 @@ class twresponder:
 				 environ.args + "\n")
 			return
 
-		uiresponder=self.makeresponder(module,rootdir,environ,session,cookies,qs,qsaofa)
-		#if uiresponder:
-			#uiresponder.p = page(uiresponder.__name__)
+		uiresponder=self.makeresponder(appbasedir,module,environ,session,cookies)
 
 		return uiresponder
 
-	def makeresponder(self,module,rootdir,environ=None,session=None,cookies=None,qs="",qsaofa=[]):
+	def makeresponder(self,appbasedir,module,environ,session=None,cookies=None):
 		""" we make it only here so that it uniform """
 
-		sys.path.append(rootdir + appname(environ))
-		sys.path.append(rootdir + appname(environ) + os.sep + "responders")
-
-		classname="myresponder"; instancename="thisresponder";
+		classname="myresponder"; instancename="this";
 		otype="ui"
 		if otype == "ui":
 			mybase="uiresponder"
 		else:
 			mybase="responder"
 
-		m=live(module,rootdir+'/responders')
+		m=live(module,appbasedir+os.sep+'responders')
 		if not m:
 			print ("responder.py:live> couldn't load module:"+ m.__name__ + '\n')
 
 		if classname not in m.__dict__:
-			print (self.environ,"responder.py:live> couldn't find class in " + str(m) +'\n')
+			print ("responder.py:live> couldn't find class in " + str(m) +'\n')
 
 		aninstance=type.__new__(m.__dict__[classname],instancename,(),{})
 
 		if not aninstance:
-			print (self.environ,"responder.py:live> couldn't instantiate :" + classname +'\n')
+			print (environ,"responder.py:live> couldn't instantiate :" + classname +'\n')
 			return
 
-		self.initresponder(aninstance,environ,session,cookies,rootdir,module,qs,qsaofa)
+		#qsaofa = http_transport.xtract_qs(qs)
+		
+		self.initresponder(aninstance,appbasedir,environ,session,cookies,module)
 		return aninstance
 
-	def initresponder(self,aresponder,environ=None,session=None,\
-	                  cookies=None,appbasedir=None,module="",qs="",qsaofa=[]):
+	def initresponder(self,aresponder,appbasedir,environ=None,session=None,\
+	                  cookies=None,module=""):
 		""" only place a responder is initialized .. """
 		aresponder.environ=environ
 		aresponder.usession=session
@@ -97,8 +107,7 @@ class twresponder:
 		aresponder.appbasedir=appbasedir
 		aresponder.formdata=None
 		aresponder.module=module
-		aresponder.qs=qs
-		aresponder.qsaofa=qsaofa
+		aresponder.qs=environ["QUERY_STRING"]
 
 
 """ section app inheritables """
@@ -111,9 +120,33 @@ class responder(type):
 
 	def setcookies(self,cookies):
 		self.cookies = cookies
+
+	def requestmethod(self):
+		return self.environ["REQUEST"]
 	
 	def requestheader(self,k):
 		return self.environ["HTTP_"+k.upper()]
+
+	def urlscheme(self):
+		return self.environ["wsgi.url_scheme"]
+
+	def host(self):
+		return self.environ["HTTP_HOST"]
+
+	def servername(self):
+		return self.environ["SERVER_NAME"]
+	
+	def serverport(self):
+		return self.environ["SERVER_PORT"]
+
+	def scriptname(self):
+		return self.environ["SCRIPT_NAME"]
+
+	def path(self):
+		return self.environ["PATH_INFO"]
+
+	def qs(self):
+		return self.environ["QUERY_STRING"]
 
 	def processform(self,encoding="utf-8"):
 		""" process any get or posted """

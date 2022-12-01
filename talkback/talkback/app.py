@@ -3,6 +3,8 @@ app.py
 Author - Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 Purpose - provide app related items to app from environ
+Use self.appbasedir in your responder, not appbasedir(environ) as SCRIPT_FILENAME may be missing
+Don't use appname as SCRIPT_FILENAME
 """
 import os
 import sys
@@ -17,8 +19,6 @@ def appbasedir(environ):
 	return pathfile(environ["SCRIPT_FILENAME"])[0]
 	
 def htdocsbasedir(environ):
-	"""		@todo - unncessary two calls
-	"""
 	return environ['DOCUMENT_ROOT']
 
 def wsgialias(environ):
@@ -35,7 +35,6 @@ def logtowebserver():
 	pass
 
 def logthis(*args):
-	""" environ is first arg followed as many as python stack would allow """
 	print (args[1:])
 
 if __name__ == "__main__":

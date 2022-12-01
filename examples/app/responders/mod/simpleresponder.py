@@ -4,7 +4,7 @@ This simple responder can be called with ?r=mod/simpleresponder
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 import config
 

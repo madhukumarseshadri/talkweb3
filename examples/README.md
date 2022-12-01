@@ -1,5 +1,17 @@
 # Examples
 
+```python
+python wsgi.py
+```
+or
 Set the appname in deploy script before running it
+Setup up with Apache
 
-This examples uses filesystem to store sessions. The folder where sessions will be stored need to have write permission for apache httpd process. See config.py to set session_rootdir. In case of Mac OS X, chown daemon:daemon path_to_sessions base dir.
+Configure gate.py as WSGIScriptAlias for the apache's httpd.conf,
+```
+WSGIScriptAlias /ex /usr/local/app/twexamples/gate.py
+<Directory "/usr/local/app/twexamples">
+Require all granted
+</Directory>
+```
+

@@ -37,6 +37,7 @@ def pathfile(apath):
 	else:
 		fn = tfn
 
+	#print('path',apath,'return',path,fn)
 	return (path,fn)
 
 def pathfileext(apath):

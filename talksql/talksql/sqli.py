@@ -38,7 +38,7 @@ def ipconnect(ipcfg):
 	""" connect using network - not done """
 	try:
 		conn = connector.Connect(**ipcfg)
-	except (connector.errors.InterfaceError, e):
+	except connector.errors.InterfaceError as e:
 		print ("couldn't connect to database using ",socket,user,passwd)
 		return
 	if 'db' in ipcfg:

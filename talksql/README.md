@@ -50,4 +50,4 @@ c = xec(con,sql)
 ```
 
 ## Few more 
-sqlaofa, sqlaofd are experimental and only works as string data see sqli.py
+sqlaofa, sqlaofd are experimental and only works as string data

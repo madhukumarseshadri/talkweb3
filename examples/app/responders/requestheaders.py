@@ -4,7 +4,7 @@ filename is used to call from url
 Author: Madhukumar Seshadri
 Copyright (c) Madhukumar Seshadri
 """
-from wsgitalkback import *
+from talkback import *
 from talkweb import *
 
 class myresponder(uiresponder):
@@ -12,7 +12,7 @@ class myresponder(uiresponder):
 	def respond(self):
 		""" your response please """
 		status = '200 OK'
-		response_headers=[]
+		response_headers=[("Content-type","text/html;charset=utf-8;")]
 
 		s = self.requestheader('rh1')
 
