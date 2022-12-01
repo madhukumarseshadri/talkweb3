@@ -17,7 +17,7 @@ pip3 install talksql
 
 Download github and deploy by install modules separately and in shell,
 ```
-python setup.py install from wsgitalkback directory
+python setup.py install from talkback directory
 python setup.py install from talkweb directory
 python setup.py install from talksql directory
 ```
@@ -50,55 +50,9 @@ A responder framework to work with any wsgi (web server gateway interface). It u
 
 To get started quickly use wsgi_ref https://docs.python.org/3/library/wsgiref.html. 
 
-Create a file with code in a project folder call it app.py,
 ```python
-import os
-import sys
-from wsgiref import simple_server, util
-
-from wsgiref.simple_server import make_server
-from wsgitalkback import *
-
-def app(environ, start_response):
-	environ["SCRIPT_FILENAME"]=environ["PWD"] + os.sep + "app.py"
-	print(appbasedir(environ))
-	uriresponder = responders.uriresponder()
-	your_responder = uriresponder.respondfor(environ)
-	
-	start_response('200 OK',[('content-type','text/plain')])
-	bytes=your_responder.respond()
-	#start_response(status,response_headers)
-	return bytes
-
-if __name__ == "__main__":
-    # Get the path and port from command-line arguments
-    path = sys.argv[1] if len(sys.argv) > 1 else os.getcwd()
-    port = int(sys.argv[2]) if len(sys.argv) > 2 else 8000
-
-    # Make and start the server until control-c
-    httpd = simple_server.make_server("", port, app)
-    print(f"Serving {path} on port {port}, control-C to stop")
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("Shutting down.")
-        httpd.server_close() 
+python wsgi.py #in examples folder
 ```
-
-Create a sub directory under project folder called responders and under that create a file called a.py and put the code below in that,
-```python
-from wsgitalkback import uiresponder
-
-class myresponder(uiresponder):
-	def respond(self):
-		return [bytes(str(self.environ),"utf-8")]
-```
-Now, run app.py, 
-```shell 
-python3 app.py 
-```
-You can get a.py responder responding to the request at http://localhost:8000/app?r=a.
-
 https://www.youtube.com/watch?v=bk5Bjaa4HHo
 
 ### Pre-requiste to deploy with Apache httpd
