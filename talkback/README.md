@@ -1,14 +1,15 @@
-# wsgitalkback
+# talkback
 
-## Why not use routes for maping urls to path of responders?
+Respond with your response to requests
 
-I think you can simply use the url for getting the responder for the request, this way you don't need another configuration file for map or urls. http://localhost/appname?r=respondername&rest_of_querystring. If you purely think of PUT / DELETE / POST in http server world, it make sense to have routes but they anyway get mapped to script (responder), so we are getting away without mapping. Issue in in GET, r needs to be an hidden input in form, with this type of getting to the responders. This works fine except for hidden input for get, so one of these days, we will add route.py to avoid this hidden input in GET.
+## Use routes file to map url path to responders
+See examples app in https://www.github.com/madhukumarseshadri/talkweb3
 
 # Examples of GET / POST / PUT / DELETE
 
 ## Examples of managing formdata,
 
-In the responder, self.qs is python string. self.qsaofa is array of array of qs vars.
+In the responder, self.qs is query string.
 
 ## For GET / POST, form submission html forms,
 
@@ -52,33 +53,7 @@ for type,fieldvalue,filename,content_type in self.formdata[b'files']:
 ## AJAX formdata GET and POST
 
 ### GET / POST forms 
-
-AJAX form data serialized as url-encoded,
-
-```python
-self.processform()
-self.formdata.data 
-#as GET/POST form above
-```
-
-AJAX form multipart/formdata,
-```python
-self.processform()
-#as POST form for multipart above  
-```
-
-AJAX JSON.Stringify()
-
-```python
-input_bytes = self.processinput()
-import json 
-json.loads(input_bytes)
-```
-
-You cannot do self.processinput() and then call self.processform() as it reads
-all of environ[wsgi.input]
-
-All GET / POST for form submit are in examples, run the examples app and see client and server code. 
+See examples app
 
 ## For PUT,
 use self.processinput() within a responder 
@@ -91,6 +66,3 @@ use self.processinput() within a responder
 
 fskeeper - keeps the sesson as file and pickles the session object to file
 sqlkeeper - keepes the session in the database in session table 
-if you are implementing your own session keeper like redis or network file, then use the interface of session.py 
-
-That wraps up the wsgitalkback package.

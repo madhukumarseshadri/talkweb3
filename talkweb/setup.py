@@ -9,11 +9,12 @@ long_description=open(md_path).read()
 
 setup(
     name = 'talkweb',
-    version = '1.2',
+    version = '1.3',
     license = 'MIT License',
     url = 'https://www.github.com/madhukumarseshadri/talkweb3',
     description = "A html to object framework",
     long_description = long_description,
+    long_description_content_type="text/markdown",
     author = 'Madhukumar Seshadri',
     author_email = 'madhukumarseshadri@gmail.com',
     zip_safe = False,

@@ -4,7 +4,7 @@ A python web framework for building web applications rapidly.
 
 It has three packages,
 1) talkweb - package to convert html to objects and work on the object tree
-2) wsgitalkback - write responders to url requests using this package
+2) talkback - write responders to url requests using this package
 3) talksql - get your sql work quickly done, use the code inside for managing the connector
 
 Installation
@@ -33,9 +33,19 @@ Assemble using Templates or Objects - Talkweb says Objects
 Talkweb makes a Object tree of html and allows insertion of other htmls into the tree. 
 
 ```python
-roots = h2o(htmlfile1)
-acell = root[0].findcellbyid("id_of_an_element")
-acell.addcell(h2oo(htmlfile2))
+from talkweb import *
+roots = h2o(htmlfile)
+#assuming htmlfile has &lt;!Doctype html&gt;&lt;html&gt;&lt;div id="x"&gt;&lt;/div&gt;&lt;/html&gt;
+
+#cell is a node
+roots[1].findcellbyid("x") 
+widget = h2o(widgethtmlfile)
+roots[1].addcell(widget)
+
+html=''
+for root in roots:
+    html += root.html()
+print(html)
 ```
 
 Like it, then you will like to develop with talkweb. If not, leave you to templates and it's rules.

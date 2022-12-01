@@ -12,8 +12,9 @@ setup(
     version = '1.4',
     license = 'MIT License',
     url = 'https://www.github.com/madhukumarseshadri/talkweb3',
-    description = "A responder framework to write responders to http requests"
+    description = "A responder framework to write responders to http requests",
     long_description = long_description,
+    long_description_content_type="text/markdown",
     author = 'Madhukumar Seshadri',
     author_email = 'madhukumarseshadri@gmail.com',
     zip_safe = False,
