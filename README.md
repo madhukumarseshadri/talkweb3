@@ -11,7 +11,7 @@ Installation
 
 ```
 pip3 install talkweb
-pip3 install wsgitalkback
+pip3 install talkback
 pip3 install talksql
 ```
 
