@@ -5,7 +5,7 @@ Copyright (c) Madhukumar Seshadri
 Purpose: loads a python module
 """ 
 
-import imp
+import importlib
 import sys
 
 class _x:
@@ -33,13 +33,13 @@ def hunt(s,p=None):
 def live(s,p=None):
 	""" where is s is string name of module"""
 	m=None
-	a,b,c,d=hunt(s,p)
-	if a:
-		m=imp.load_module(s,b,c,d)
-		#f=open("/tmp/a.log","w")
-		#f.write(str(m))
-		#f.close()
-		return m
+	#a,b,c,d=hunt(s,p)
+	#if a:
+	m=importlib.import_module(s,p)
+	#f=open("/tmp/a.log","w")
+	#f.write(str(m))
+	#f.close()
+	return m
 
 def findclass(m,udef):
 	""" find a class which is name of class in string loaded in udef in a live module """
