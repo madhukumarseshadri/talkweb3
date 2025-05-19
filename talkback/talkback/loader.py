@@ -15,7 +15,7 @@ def hunt(s,p=None):
 	a="m"
 	if p:
 		sys.path.append(p)
-	f,fn,smt=imp.find_module(s,None)
+	f,fn,smt=importlib.find_module(s,None)
 	if not f and fn:
 		try:
 			f = open(fn +".py","r")
