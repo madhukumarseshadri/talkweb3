@@ -24,7 +24,7 @@ python setup.py install from talksql directory
 
 ## Why Talkweb?
 
-https://www.madhu.ink/blog/software/why-talkweb-for-python-web-development/
+https://www.madhu.tokyo/blog/software/why-talkweb-for-python-web-development/
 
 ## Talkweb
 
